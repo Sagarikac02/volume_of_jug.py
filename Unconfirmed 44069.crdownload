@@ -1,0 +1,71 @@
+def createjug(v):
+    L = []
+    for i in range(v):
+        L.append(0)
+    return L
+        
+def fillthejug(L):
+    for i in range(len(L)):
+        if L[i] != 1:
+            L[i] = 1
+def emptythejug(L):
+    for i in range(len(L)):
+        L[i] = 0
+   
+def transferwater(L1,L2):
+  for i in range(len(L1)):
+    for j in range(len(L2)):
+      if (L1[i] == 1 and L2[j] == 0):
+        L1[i] = 0 
+        L2[j] = 1
+  return L1, L2
+
+def display():
+  print('Select from the following functions')
+  print('1. Empty jug 1')
+  print('2. Empty jug 2')
+  print('3. Fill jug 1')
+  print('4. Fill jug 2')
+  print('5. Transfer all water from jug 1 to jug 2')
+  print('6. Transfer all water from jug 2 to jug 1')
+  print('7. Transfer some water from jug 1 to jug 2')
+  print('8. Transfer some water from jug 2 to jug 1')
+  option = int(input('Enter the option number of the desired action: '))
+  return option
+
+def action(J1,J2,option):
+  if(option == 1):
+    emptythejug(J1)
+  elif(option == 2):
+    emptythejug(J2)
+  elif(option == 3):
+    fillthejug(J1)
+  elif(option == 4):
+    fillthejug(J2)
+  elif(option == 5 or option == 7):
+    transferwater(J1,J2)
+  elif(option == 6 or option == 8):
+    transferwater(J2,J1)
+
+def currentwatervol(L1,L2):
+  vj1 = L1.count(1)
+  vj2 = L2.count(1)
+  print(f"Jug 1 has {vj1} litres of water currently.")
+  print(f"Jug 2 has {vj2} litres of water currently.")
+  return vj1,vj2
+  
+v1 = int(input('Enter total volume of jug 1: '))
+v2 = int(input('Enter total volume of jug 2: '))
+J1 = createjug(v1)
+J2 = createjug(v2)
+ivj1 = int(input('Enter the initial volume of jug 1: '))
+ivj2 = int(input('Enter the initial volume of jug 2: '))
+gvj1 = int(input('Enter the goal volume of jug 1: '))
+gvj2 = int(input('Enter the goal volume of jug 2: '))
+while(ivj1 != gvj1 or ivj2 != gvj2):
+  option = display()
+  action(J1,J2,option)
+  ivj1, ivj2 = currentwatervol(J1,J2)
+  if(ivj1 == gvj1 and ivj2 == gvj2):
+    print('Target volume reached')
+    break
